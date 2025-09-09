@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI智能服务助手</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        #app {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* 不同服务的颜色 */
+        .ai-doctor .icon { background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); }
+        .ai-chef .icon { background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%); }
+        .ai-pet .icon { background: linear-gradient(135deg, #FFD26F 0%, #9F44D3 100%); }
+        .ai-knowledge .icon { background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%); }
+        .ai-fashion .icon { background: linear-gradient(135deg, #FF61D2 0%, #FE9090 100%); }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <h1>AI智能服务助手</h1>
+        <p>选择您需要的AI服务，体验智能化生活</p>
+    </div>
+
+    <div class="services-grid">
+        <div class="service-card ai-doctor" v-for="service in services" :key="service.id" @click="selectService(service)">
+            <div class="icon">
+                {{ service.icon }}
+            </div>
+            <h3>{{ service.name }}</h3>
+            <p>{{ service.description }}</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const { createApp, ref } = Vue;
+
+    createApp({
+        setup() {
+            const services = ref([
+                {
+                    id: 1,
+                    name: 'AI医生',
+                    icon: '🏥',
+                    description: '智能医疗咨询与健康建议'
+                },
+                {
+                    id: 2,
+                    name: 'AI厨师',
+                    icon: '👨‍🍳',
+                    description: '个性化食谱推荐与烹饪指导'
+                },
+                {
+                    id: 3,
+                    name: 'AI宠物',
+                    icon: '🐾',
+                    description: '宠物健康与行为问题解答'
+                },
+                {
+                    id: 4,
+                    name: '知识库问答',
+                    icon: '📚',
+                    description: '海量知识解答您的各种疑问'
+                },
+                {
+                    id: 5,
+                    name: 'AI穿搭',
+                    icon: '👔',
+                    description: '个性化穿搭建议与时尚推荐'
+                }
+            ]);
+
+            const selectService = (service) => {
+                alert(`您选择了: ${service.name}`);
+                // 在实际应用中，这里可以跳转到相应页面或打开功能模块
+            };
+
+            return {
+                services,
+                selectService
+            };
+        }
+    }).mount('#app');
+</script>
+</body>
+</html>
